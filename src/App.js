@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Gameboard from './components/Gamboard';
+import Scoreboard from './components/Scoreboard';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Memory Game</h1>
+        <p>Get points by clicking on an image, but don't click on any more than once!</p>
       </header>
+      <main>
+        <Scoreboard />
+        <Gameboard />
+      </main>
     </div>
   );
 }
