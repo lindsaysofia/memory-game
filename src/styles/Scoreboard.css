@@ -1,0 +1,10 @@
+.Scoreboard {
+  background-color: var(--color-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Scoreboard > * {
+  padding: 0 1em;
+}

@@ -1,8 +1,9 @@
 :root {
-  --color-gray: #59606E;
+  --color-gray: #6E6E6E;
   --color-black: #1f2022;
   --color-orange: #FFA400;
   --color-green: #30B700;
+  --color-bluegray: #59606E;
 }
 
 .App {
@@ -15,7 +16,7 @@
 }
 
 .App-header {
-  background-color: var(--color-gray);
+  background-color: var(--color-bluegray);
   min-height: 5%;
   display: flex;
   flex-direction: column;
