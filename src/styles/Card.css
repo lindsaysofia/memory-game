@@ -2,3 +2,7 @@
   margin: 1em;
   background-color: var(--color-bluegray);
 }
+
+.Card:hover {
+  cursor: pointer;
+}

@@ -1,14 +1,20 @@
 import React from 'react';
 import '../styles/Scoreboard.css';
 
-function Scoreboard() {
+function Scoreboard(props) {
+  const {
+    level,
+    currentScore,
+    bestScore,
+    levelScore,
+  } = props;
   return (
     <div className="Scoreboard">
-      <p>Current Score: 0</p>
+      <p>Current Score: {currentScore}</p>
       <i className="fas fa-bolt"></i>
-      <p>Best Score: 0</p>
+      <p>Best Score: {bestScore}</p>
       <i className="fas fa-bolt"></i>
-      <p>Level 1 Score: 0 / 4</p>
+      <p>Level {level} Score: {levelScore} / {4 + ((level - 1) * 2)}</p>
     </div>
   );
 }
