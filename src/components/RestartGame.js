@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/RestartGame.css';
 
 function RestartGame() {
   return (

@@ -1,0 +1,11 @@
+.RestartLevel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
+}
+
+.RestartLevel button {
+  background-color: var(--color-orange);
+  color: white;
+}

@@ -1,0 +1,11 @@
+.RestartGame {
+  position: absolute;
+  top: 2em;
+  right: 0;
+  margin: 1em;
+}
+
+.RestartGame button {
+  background-color: var(--color-green);
+  color: white;
+}

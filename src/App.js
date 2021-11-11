@@ -1,10 +1,25 @@
+import { useEffect } from 'react';
 import './App.css';
 import Gameboard from './components/Gamboard';
 import RestartLevel from './components/RestartLevel';
 import Scoreboard from './components/Scoreboard';
-import RestartGame from './RestartGame';
+import RestartGame from './components/RestartGame';
 
 function App() {
+  let data = {};
+
+  async function getData() {
+    const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php', {mode: 'cors'});
+    const cardData = await response.json();
+    data = cardData;
+  }
+
+  
+  useEffect(() => {
+    // getData();
+  }, []);
+  
+
   return (
     <div className="App">
       <header className="App-header">
