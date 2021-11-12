@@ -6,12 +6,21 @@ import Scoreboard from './components/Scoreboard';
 import RestartGame from './components/RestartGame';
 
 function App() {
-  let data = {};
-  const [ level, setLevel ] = useState(1);
-  const [ currentScore, setCurrentScore ] = useState();
-  const [ bestScore, setBestScore ] = useState(0);
-  const [ levelScore, setLevelScore ] = useState(0);
-  const [ currentCards, setCurrentCards ] = useState([]);
+  let data = [];
+  const [level, setLevel] = useState(1);
+  const [currentScore, setCurrentScore] = useState();
+  const [bestScore, setBestScore] = useState(0);
+  const [levelScore, setLevelScore] = useState(0);
+  const [currentCards, setCurrentCards] = useState([]);
+
+  async function getData() {
+    const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php', {mode: 'cors'});
+    const cardData = await response.json();
+    data = cardData.data;
+    setCurrentCards(getNewCurrentCards(4 + ((level - 1) * 2)));
+  }
+
+  // getData();
 
   const getRandomInteger = (max) => {
     return Math.floor(Math.random() * max);
@@ -47,18 +56,9 @@ function App() {
     return cardsCopy;
   }
   
-
-  async function getData() {
-    const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php', {mode: 'cors'});
-    const cardData = await response.json();
-    data = cardData;
-  }
-
-  
   useEffect(() => {
-    // getData();
+    getData();
   }, []);
-  
 
   return (
     <div className="App">
@@ -75,7 +75,9 @@ function App() {
           bestScore={bestScore}
           levelScore={levelScore}
         />
-        <Gameboard />
+        <Gameboard 
+          currentCards={currentCards}
+        />
       </main>
     </div>
   );

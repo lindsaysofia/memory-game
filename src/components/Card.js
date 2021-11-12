@@ -1,14 +1,15 @@
 import React from 'react';
 import '../styles/Card.css';
 
-function Card() {
+function Card(props) {
+  const { card } = props;
   return (
     <div className="Card">
       <img 
         alt=""
-        src="https://storage.googleapis.com/ygoprodeck.com/pics_small/34541863.jpg"
+        src={card.card.card_images[0].image_url_small}
       />
-      <p>Description</p>
+      <p>{card.card.name}</p>
     </div>
   );
 }
