@@ -1,8 +1,13 @@
 .Card {
   margin: 1em;
   background-color: var(--color-bluegray);
+  max-width: 170px;
 }
 
 .Card:hover {
   cursor: pointer;
+}
+
+.Card p {
+  word-wrap: break-word;
 }

@@ -3,7 +3,7 @@ import Card from './Card';
 import '../styles/Gameboard.css'
 
 function Gameboard(props) {
-  const { currentCards } = props;
+  const { currentCards, handleClick } = props;
   console.log(currentCards);
   return (
     <div className="Gameboard">
@@ -12,9 +12,10 @@ function Gameboard(props) {
           <Card
             key={card.card.id}
             card={card}
+            handleClick={handleClick}
           />
         );
-      })};
+      })}
     </div>
   );
 }

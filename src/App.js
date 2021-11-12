@@ -55,6 +55,11 @@ function App() {
     }
     return cardsCopy;
   }
+
+  const handleClick = () => {
+    let newShuffledCards = shuffleCurrentCards(currentCards);
+    setCurrentCards(newShuffledCards);
+  }
   
   useEffect(() => {
     getData();
@@ -77,6 +82,7 @@ function App() {
         />
         <Gameboard 
           currentCards={currentCards}
+          handleClick={handleClick}
         />
       </main>
     </div>
