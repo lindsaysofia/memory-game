@@ -6,9 +6,11 @@ import Scoreboard from './components/Scoreboard';
 import RestartGame from './components/RestartGame';
 
 function App() {
-  let data = [];
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [alreadyClicked, setAlreadyClicked] = useState(false);
   const [level, setLevel] = useState(1);
-  const [currentScore, setCurrentScore] = useState();
+  const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [levelScore, setLevelScore] = useState(0);
   const [currentCards, setCurrentCards] = useState([]);
@@ -16,15 +18,12 @@ function App() {
   async function getData() {
     const response = await fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php', {mode: 'cors'});
     const cardData = await response.json();
-    data = cardData.data;
-    setCurrentCards(getNewCurrentCards(4 + ((level - 1) * 2)));
+    setData(cardData.data);
   }
-
-  // getData();
 
   const getRandomInteger = (max) => {
     return Math.floor(Math.random() * max);
-  }
+  };
 
   const getNewCurrentCards = (number) => {
     const cards = [];
@@ -41,6 +40,7 @@ function App() {
       integers.push(randomInteger);
       number = number -1;
     }
+    setIsLoading(false);
     return cards;
   };
 
@@ -54,16 +54,44 @@ function App() {
         cardsCopy[j] = temp;
     }
     return cardsCopy;
-  }
+  };
 
-  const handleClick = () => {
-    let newShuffledCards = shuffleCurrentCards(currentCards);
-    setCurrentCards(newShuffledCards);
-  }
+  const handleClick = (e) => {
+    let index = e.target.dataset.index;
+    if (currentCards[index].clicked) {
+      setAlreadyClicked(true);
+    } else {
+      let newLevelScore = levelScore + 1;
+      currentCards[index].clicked = true;
+      setCurrentScore((prevCurrentScore) => prevCurrentScore + 1);
+      setLevelScore((prevLevelScore) => prevLevelScore + 1);
+      if (newLevelScore === (4 + ((level - 1) * 2))) {
+        setIsLoading(true);
+        setLevel((prevLevel) => prevLevel + 1);
+        setLevelScore(0);
+      } else {
+        let newShuffledCards = shuffleCurrentCards(currentCards);
+        setCurrentCards(newShuffledCards);
+      }
+    }
+  };
+
   
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      setCurrentCards(getNewCurrentCards(4 + ((level - 1) * 2)));
+    }
+  }, [data, level]);
+
+  useEffect(() => {
+    if (currentScore > bestScore) {
+      setBestScore(currentScore);
+    }
+  }, [currentScore, bestScore]);
 
   return (
     <div className="App">
@@ -83,6 +111,8 @@ function App() {
         <Gameboard 
           currentCards={currentCards}
           handleClick={handleClick}
+          isLoading={isLoading}
+          alreadyClicked={alreadyClicked}
         />
       </main>
     </div>
