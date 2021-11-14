@@ -26,6 +26,7 @@ function App() {
   };
 
   const getNewCurrentCards = (number) => {
+    number = Math.min(number, data.length);
     const cards = [];
     const integers = [];
     while (number > 0) {
