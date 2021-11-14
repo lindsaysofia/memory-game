@@ -1,10 +1,11 @@
 import React from 'react';
 import '../styles/RestartGame.css';
 
-function RestartGame() {
+function RestartGame(props) {
+  const { handleRestartGame } = props;
   return (
     <div className="RestartGame">
-      <button>Restart Game</button>
+      <button onClick={handleRestartGame}>Restart Game</button>
     </div>
   );
 }

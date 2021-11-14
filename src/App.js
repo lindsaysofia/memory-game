@@ -76,6 +76,18 @@ function App() {
     }
   };
 
+  const handleRestartLevel = () => {
+    setCurrentScore(currentScore - levelScore);
+    setLevelScore(0);
+    setAlreadyClicked(false);
+  };
+
+  const handleRestartGame = () => {
+    setCurrentScore(0);
+    setLevelScore(0);
+    setLevel(1);
+    setAlreadyClicked(false);
+  };
   
   useEffect(() => {
     getData();
@@ -83,9 +95,10 @@ function App() {
 
   useEffect(() => {
     if (data.length > 0) {
-      setCurrentCards(getNewCurrentCards(4 + ((level - 1) * 2)));
+      let newCards = getNewCurrentCards(4 + ((level - 1) * 2))
+      setCurrentCards(newCards);
     }
-  }, [data, level]);
+  }, [data, level, alreadyClicked]);
 
   useEffect(() => {
     if (currentScore > bestScore) {
@@ -98,8 +111,12 @@ function App() {
       <header className="App-header">
         <h1>Memory Game</h1>
         <p>Get points by clicking on an image, but don't click on any more than once!</p>
-        <RestartLevel />
-        <RestartGame />
+        <RestartLevel 
+          handleRestartLevel={handleRestartLevel}
+        />
+        <RestartGame 
+          handleRestartGame={handleRestartGame}
+        />
       </header>
       <main>
         <Scoreboard 
